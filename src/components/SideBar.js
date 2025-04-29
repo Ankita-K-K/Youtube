@@ -13,7 +13,7 @@ const SideBar = () => {
     const isMenuOpen = useSelector(store => store.app.isMenuOpen);
     if(!isMenuOpen) return null;
   return (
-    <div className='col-span-2 shadow-lg mt-1'>
+    <div className='col-span-1 shadow-lg mt-1'>
         <div className='flex flex-col gap-3 m-2 text-lg'>
             <ul className='flex flex-col gap-2'>
                 <li className='flex gap-3 items-center justify-start'>
