@@ -35,7 +35,7 @@ const Header = () => {
                     <input type='text' placeholder='search' className='w-[35rem] border border-gray-400 rounded-l-full p-2' onChange={(e) => setSearch(e.target.value)} value={search} onFocus={() => setShowSearch(true)} onBlur={() => setShowSearch(false)}/>
                     <button className='p-2 border border-gray-400 rounded-r-full bg-gray-300'><img src='https://img.icons8.com/ios7/600/search.png' alt='search-button' className='h-6' /></button>
                 </div>
-                {searchList.length > 0 && showSearch && <div className='fixed bg-white rounded-lg w-[35rem] shadow-sm mt-2 p-5'>
+                {search && searchList.length > 0 && showSearch && <div className='fixed bg-white rounded-lg w-[35rem] shadow-sm mt-2 p-5'>
                     <ul className='flex flex-col gap-2'>
                         {
                             searchList.map(s => <div className='flex gap-3 justify-center items-center'>
