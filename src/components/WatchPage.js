@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { closeMenu } from '../utils/appSlice'
 import { useSearchParams } from 'react-router-dom'
+import LiveChat from './LiveChat'
+import { addMessage } from '../utils/chatSlice'
+
 
 const comments = [
   {
@@ -130,6 +133,7 @@ const CommentContainer = ({comment = []}) => {
 }
 
 const WatchPage = () => {
+    const [comment, setComment] = useState("");
     const [searchParams] = useSearchParams();
     const dispatch = useDispatch()
     useEffect(() => {
@@ -137,8 +141,26 @@ const WatchPage = () => {
     }, [])
   return (
     <div className='p-4 flex flex-col'>
-        <iframe width="700" height="400" className="rounded-xl" src={"https://www.youtube.com/embed/"+ searchParams.get('v') +"?si=hK9upky3wPnBlf0G"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-        <div className='w-[43rem] p-5'>
+      <div className='flex'>
+        <iframe width="820" height="400" className="rounded-xl" src={"https://www.youtube.com/embed/"+ searchParams.get('v') +"?si=hK9upky3wPnBlf0G"} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+        <div className='bg-gray-100 h-[400px] border border-gray-200 rounded-lg px-4 w-[400px] ml-3'>
+        <h2 className='font-semibold text-lg'>Live Chats:</h2>
+        <div className='flex flex-col-reverse overflow-y-scroll h-[320px] px-4 pb-1 mt-1'>
+        <LiveChat />
+      </div>
+      <form className='flex gap-1'>
+        <input type='text' className='border border-gray-300 rounded-2xl w-full mt-1 px-4 py-1'onChange={(e) => setComment(e.target.value)} value={comment}/>
+        <button type="submit" className='bg-gray-300 px-4 rounded-full hover:bg-gray-400' onClick={(e) => {
+          if(comment && comment.length > 0){
+            e.preventDefault();
+            setComment(""); 
+            dispatch(addMessage({name:"Ankita", message:comment}))
+          }
+        }}>➤</button>
+      </form>
+        </div>
+      </div>
+        <div className='p-5'>
           <h2 className='font-bold text-xl mt-1'>Comments: </h2>
           <div className='bg-gray-100 rounded-lg px-2'>
             <CommentContainer comment={comments} />
